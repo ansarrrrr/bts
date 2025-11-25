@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class BtsController extends Controller {
     
-    // index
+    // INDEX
     public function index() {
         // ---------------- versi ANSAR ---------------- //
 
@@ -38,7 +38,7 @@ class BtsController extends Controller {
         return view('bts.index', compact('data'));
     }
 
-    // create
+    // CREATE
     public function create() {
         // ---------------- versi ANSAR ---------------- //
 
@@ -59,7 +59,7 @@ class BtsController extends Controller {
         return view('bts.create', compact('kab', 'kec', 'desa'));
     }
 
-    // store
+    // STORE
     public function store(Request $request) {
         // ---------------- versi ansar ---------------- //
         $data = $request->validate([
@@ -192,6 +192,7 @@ class BtsController extends Controller {
         $bts->delete();
         return redirect('/data-bts')->with('success', 'Data berhasil dihapus');
     }
+
     public function _destroy($id) {
         // ---------------- versi bapak ---------------- //
         
