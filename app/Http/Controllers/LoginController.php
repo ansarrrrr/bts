@@ -50,10 +50,3 @@ class LoginController extends Controller
         return redirect('/login')->with('success', 'Anda berhasil logout');
     }
 }
-
-
-// if ($users!=$no_hp) {
-        //     return redirect('/login')->with('error', 'Nomor HP salah!');
-        // }
-
-            //  Session::put('session_islogin', true);

@@ -37,7 +37,7 @@
             <!-- User -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="fas fa-user-circle"></i> {{ Auth::user()->nama ?? 'Administrator' }}
+                    <i class="fas fa-user-circle"></i> Administrator
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a href="{{ url('/utility/profil') }}" class="dropdown-item">

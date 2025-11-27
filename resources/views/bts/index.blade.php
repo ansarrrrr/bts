@@ -15,7 +15,6 @@
                     <th>Pemilik</th>
                     <th>Latitude</th>
                     <th>Longitude</th>
-                    <th>Kabupaten</th>
                     <th>Kecamatan</th>
                     <th>Desa</th>
                     <th>Tinggi</th>
@@ -27,14 +26,13 @@
                     <td>
                         <a href="{{ url('/data-bts/edit-data/'.$row->id) }}" class="btn btn-sm btn-primary">Edit</a>
                         <a href="{{ url('/data-bts/hapus-data/'.$row->id) }}" 
-                           onclick="return confirm('Yakin ingin menghapus data ini?')" 
+                           onclick="return confirm('Yakin ingin menghapus data ini?')"
                            class="btn btn-sm btn-danger">Hapus</a>
                     </td>
                     <td>{{ $row->kd_site }}</td>
                     <td>{{ $row->pemilik }}</td>
                     <td>{{ $row->lat }}</td>
                     <td>{{ $row->lng }}</td>
-                    <td>{{ $row->nama_kabupaten }}</td>
                     <td>{{ $row->nama_kecamatan }}</td>
 
                     <!-- <td>{{ $row->kd_desa }}</td> -->

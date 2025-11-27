@@ -6,7 +6,7 @@
         <h3 class="card-title">Daftar Bts</h3>
     </div>
     <div class="card-body">
-    <h2>Edit Data Berkas</h2>
+    <h2>Edit Data Berkas {{ $bts->kd_site }}</h2>
 
     <form method="POST" action="{{ url('/data-bts/update-data/'.$bts->id) }}">
         @csrf
