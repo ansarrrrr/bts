@@ -8,9 +8,10 @@ use App\Models\DesaModel;
 
 class DesaController extends Controller
 {
-    public function index()
-    {
-        $data = DesaModel::all();
+    public function index() {
+        $data = DesaModel::orderBy('tbl_desa.kd_desa', 'ASC')
+        ->paginate(10);
+
         return view('desa.index', compact('data'));
     }
 

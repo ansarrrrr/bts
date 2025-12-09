@@ -12,29 +12,50 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbl_bts', function (Blueprint $table) {
-            $table->increments('id'); // int(11) auto increment primary key
+            $table->increments('id');
             
-            $table->string('kd_site', 30)->nullable();
+            $table->string('kd_site', 30) ->nullable();
             $table->string('pemilik', 100)->nullable();
-            $table->string('lat', 30)->nullable();
-            $table->string('lng', 30)->nullable();
-            $table->string('kd_kab', 30)->nullable();
-            $table->string('kd_kec', 30)->nullable();
-            $table->string('kd_desa', 30)->nullable();
-            
-            $table->integer('tinggi')->nullable(); // int(11)
-            $table->string('luas', 30)->nullable();
+            $table->string('lat', 30)     ->nullable();
+            $table->string('lng', 30)     ->nullable();
+            $table->string('kd_kab', 30)  ->nullable();
+            $table->string('kd_kec', 30)  ->nullable();
+            $table->string('kd_desa', 30) ->nullable();
+            $table->integer('tinggi')     ->nullable();
+            $table->string('luas', 30)    ->nullable();
     
-            // enum status ("1", "0") default "1"
             $table->enum('status', ['1', '0'])->default('1');
-
-            // $table->string('tahun', 4)->nullable();
+            $table->string('tahun', 4)        ->nullable();
+            $table->string('keterangan', 255) ->nullable();
     
-            $table->string('keterangan', 255)->nullable();
-    
-            $table->integer('created_id')->nullable();
+            $table->integer('created_id') ->nullable();
             $table->dateTime('created_at')->nullable();
-            $table->integer('updated_id')->nullable();
+            $table->integer('updated_id') ->nullable();
+            $table->dateTime('updated_at')->nullable();
+        });
+
+        Schema::create('tbl_bts', function (Blueprint $table) {
+            $table->increments('id');
+            
+            $table->string('kd_site', 30) ->nullable();
+            $table->string('kd_kab', 30)  ->nullable();
+            $table->string('kd_kec', 30)  ->nullable();
+            $table->string('kd_desa', 30) ->nullable();
+            $table->string('pemilik', 100)->nullable();
+            $table->string('alamat', 255) ->nullable();
+            $table->string('lat', 30)     ->nullable();
+            $table->string('lng', 30)     ->nullable();
+            $table->integer('tinggi')     ->nullable();
+            $table->string('luas', 30)    ->nullable();
+
+            $table->enum('status', ['1', '0'])->default('1');
+            $table->string('tahun', 4)        ->nullable();
+            $table->string('provider', 255)   ->nullable();
+            $table->string('keterangan', 255) ->nullable();
+    
+            $table->integer('created_id') ->nullable();
+            $table->dateTime('created_at')->nullable();
+            $table->integer('updated_id') ->nullable();
             $table->dateTime('updated_at')->nullable();
         });
     }

@@ -49,4 +49,14 @@ class LoginController extends Controller
     
         return redirect('/login')->with('success', 'Anda berhasil logout');
     }
+
+    public static function getUserLogin() {
+        $login_no_hp = Session::get('session_no_hp');
+        
+        if (!$login_no_hp) {
+            return null;
+        }
+    
+        return DB::table('tbl_admin')->where('no_hp', $login_no_hp)->first();
+    }
 }

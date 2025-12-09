@@ -9,12 +9,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE -->
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -36,8 +33,11 @@
         <ul class="navbar-nav ml-auto">
             <!-- User -->
             <li class="nav-item dropdown">
+                
                 <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="fas fa-user-circle"></i> {{ Auth::user()->nama ?? 'Administrator' }}
+                    <!-- <i class="fas fa-user-circle"></i> Administrator -->
+                     <i class="fas fa-user-circle"></i> {{ $user->no_hp ?? 'Administrator' }}
+                    <!-- <i class="fas fa-user-circle"></i> {{ Auth::user()->no_hp ?? 'Administrator' }} -->
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a href="{{ url('/utility/profil') }}" class="dropdown-item">
@@ -183,5 +183,31 @@
     </footer>
 
 </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE -->
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            width: '100%',
+            dropdownAutoWidth: true
+        });
+
+        // fokus otomatis ke input search saat dropdown dibuka
+        $('.select2').on('select2:open', function (e) {
+            setTimeout(() => {
+            document.querySelector('.select2-container .select2-search__field').focus();
+        }, 10);
+        });
+    });
+    </script>
+    
+
 </body>
 </html>

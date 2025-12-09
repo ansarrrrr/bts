@@ -51,3 +51,10 @@ Route::post('/login/proses-data',      [LoginController::class, 'proses'])->name
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+// EXPORT EXCEL
+Route::get('/data-bts/export-excel', [BtsController::class, 'exportExcel']);
+// EXPORT PDF
+Route::get('/data-bts/export-pdf', [BtsController::class, 'exportPDF']);
+// EXPORT PRINT
+Route::get('/data-bts/print', [BtsController::class, 'print']);

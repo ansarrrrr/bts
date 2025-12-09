@@ -11,7 +11,7 @@
             @csrf
             <div class="form-group">
                 <label for="kd_kec">Kode Kecamatan</label>
-                <input type="text" name="kd_kec" id="kd_kec" class="form-control" placeholder="Masukkan kode kecamatan" required>
+                <input type="number" name="kd_kec" id="kd_kec" class="form-control" placeholder="Masukkan kode kecamatan" required>
             </div>
 
             <div class="form-group">

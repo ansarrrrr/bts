@@ -17,7 +17,25 @@
             <input type="text" name="kd_site" id="kd_site" class="form-control" placeholder="Masukkan kode site" required value="{{ $bts->kd_site }}">
         </div>
 
-        <!-- KABUPATEN -->
+        <!-- nama pemilik -->
+        <div class="form-group">
+            <label for="pemilik">Nama Pemilik</label>
+            <input type="text" name="pemilik" id="pemilik" class="form-control" placeholder="Masukkan nama pemilik" required value="{{ $bts->pemilik }}">
+        </div>
+
+        <!-- latitude -->
+        <div class="form-group">
+            <label for="lat">Latitude</label>
+            <input type="text" name="lat" id="lat" class="form-control" placeholder="Masukkan latitude" required value="{{ $bts->lat }}">
+        </div>
+
+        <!-- longitude -->
+        <div class="form-group">
+            <label for="lng">Longitude</label>
+            <input type="text" name="lng" id="lng" class="form-control" placeholder="Masukkan longitude" required value="{{ $bts->lng }}">
+        </div>
+        
+        <!-- kabupaten -->
         <div class="form-group">
             <label for="kd_kab">Kabupaten</label>
 
@@ -39,7 +57,7 @@
 
         </div>
         
-        <!-- KECAMATAN -->
+        <!-- kecamatan -->
         <div class="form-group">
             <label for="kd_kec">Kecamatan</label>
 
@@ -61,7 +79,7 @@
 
         </div>
 
-        <!-- DESA -->
+        <!-- desa -->
         <div class="form-group">
             <label for="kd_desa">Desa</label>
 
@@ -80,30 +98,6 @@
                     </option>
                 @endforeach
             </select>
-        </div>
-
-        <!-- NAMA PEMILIK -->
-        <div class="form-group">
-            <label for="pemilik">Nama Pemilik</label>
-            <input type="text" name="pemilik" id="pemilik" class="form-control" placeholder="Masukkan nama pemilik" required value="{{ $bts->pemilik }}">
-        </div>
-
-        <!-- ALAMAT -->
-        <div class="form-group">
-            <label for="alamat">Alamat</label>
-            <input type="text" name="alamat" id="alamat" class="form-control" placeholder="Masukkan alamat" required value="{{ $bts->alamat }}">
-        </div>
-
-        <!-- latitude -->
-        <div class="form-group">
-            <label for="lat">Latitude</label>
-            <input type="text" name="lat" id="lat" class="form-control" placeholder="Masukkan latitude" required value="{{ $bts->lat }}">
-        </div>
-
-        <!-- longitude -->
-        <div class="form-group">
-            <label for="lng">Longitude</label>
-            <input type="text" name="lng" id="lng" class="form-control" placeholder="Masukkan longitude" required value="{{ $bts->lng }}">
         </div>
 
         <!-- tinggi -->
@@ -140,12 +134,6 @@
         <div class="form-group">
             <label for="tahun">Tahun</label>
             <input type="number" name="tahun" id="tahun" class="form-control" placeholder="Masukkan tahun" required value="{{ $bts->tahun }}">
-        </div>
-
-        <!-- PROVIDER -->
-        <div class="form-group">
-            <label for="provider">Provider</label>
-            <input type="text" name="provider" id="provider" class="form-control" placeholder="Masukkan provider" required value="{{ $bts->provider }}">
         </div>
 
         <!-- keterangan -->

@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use PDF;
 use Illuminate\Http\Request;
 use App\Models\BtsModel;
 use App\Models\KabupatenModel;
@@ -13,8 +14,8 @@ use Illuminate\Support\Facades\DB;
 class BtsController extends Controller {
     
     // INDEX
+    // ---------------- versi ANSAR ---------------- //
     public function index() {
-        // ---------------- versi ANSAR ---------------- //
 
         $data = BtsModel::select(
             'tbl_bts.*', 
@@ -25,7 +26,9 @@ class BtsController extends Controller {
         ->leftJoin('tbl_desa', 'tbl_bts.kd_desa', '=', 'tbl_desa.kd_desa')
         ->leftJoin('tbl_kecamatan', 'tbl_bts.kd_kec', '=', 'tbl_kecamatan.kd_kec')
         ->leftJoin('tbl_kabupaten', 'tbl_bts.kd_kab', '=', 'tbl_kabupaten.kd_kab')
-        ->get();
+        ->orderBy('tbl_bts.kd_site', 'ASC')
+        ->paginate(10);
+        // ->get();
 
         return view('bts.index', compact('data'));
     }
@@ -42,10 +45,13 @@ class BtsController extends Controller {
     public function create() {
         // ---------------- versi ANSAR ---------------- //
 
+        $existing_kd_site = BtsModel::pluck('kd_site')->toArray();
+
         return view('bts.create', [
             'kab' => KabupatenModel::all(),
             'kec' => KecamatanModel::all(),
             'desa' => DesaModel::all(),
+            'existing_kd_site' => $existing_kd_site
         ]);
     }
 
@@ -63,17 +69,19 @@ class BtsController extends Controller {
     public function store(Request $request) {
         // ---------------- versi ansar ---------------- //
         $data = $request->validate([
-            'kd_site'   => 'required',
+            'kd_site'   => 'required|unique:tbl_bts,kd_site',
             'pemilik'   => 'required',
+            'alamat'    => 'required',
             'lat'       => 'required',
             'lng'       => 'required',
             'kd_kab'    => 'required',
             'kd_kec'    => 'required',
             'kd_desa'   => 'required',
             'tinggi'    => 'required',
-            'luas'      => 'required',
-            'status'    => 'required',
+            // 'luas'      => 'required',
+            // 'status'    => 'required',
             'tahun'     => 'required',
+            'provider'  => 'required',
 
             'keterangan'=> 'nullable',
         ]);
@@ -133,11 +141,12 @@ class BtsController extends Controller {
 
     // UPDATE
     public function update(Request $request, $id) {
-       // ---------------- versi bapak ---------------- //
+        // ---------------- versi ANSAR ---------------- //
 
-        $request->validate([
+        $validated = $request->validate([
             'kd_site' => 'required',
             'pemilik' => 'required',
+            'alamat'  => 'required',
             'lat'     => 'required',
             'lng'     => 'required',
             'kd_kab'  => 'required',
@@ -147,15 +156,11 @@ class BtsController extends Controller {
             'luas'    => 'required',
             'status'  => 'required',
             'tahun'   => 'required',
+            'provider'=> 'required',
         ]);
-
-        $bts = BtsModel::findOrFail($id);
-        $bts->update($request->only([
-            'kd_site', 'pemilik', 'lat', 'lng','kd_kab',
-            'kd_kec', 'kd_desa', 'tinggi', 'luas',
-            'status','tahun', 'keterangan'
-        ]));
-
+        
+        BtsModel::findOrFail($id)->update($validated);
+    
         return redirect('/data-bts')->with('success', 'Data berhasil diperbarui');
     }
 
@@ -165,20 +170,24 @@ class BtsController extends Controller {
         $request->validate([
             'kd_site' => 'required',
             'pemilik' => 'required',
-            'kd_kab' => 'required',
-            'kd_kec' => 'required',
+            'alamat'  => 'required',
+            'lat'     => 'required',
+            'lng'     => 'required',
+            'kd_kab'  => 'required',
+            'kd_kec'  => 'required',
             'kd_desa' => 'required',
-            'tinggi' => 'required',
-            'luas' => 'required',
-            'status' => 'required',
-            'tahun' => 'required',
+            'tinggi'  => 'required',
+            'luas'    => 'required',
+            'status'  => 'required',
+            'tahun'   => 'required',
+            'provider'=> 'required',
         ]);
 
         $bts = BtsModel::findOrFail($id);
         $bts->update($request->only([
-            'kd_site', 'pemilik', 'kd_kab',
+            'kd_site', 'pemilik', 'alamat', 'lat', 'lng','kd_kab',
             'kd_kec', 'kd_desa', 'tinggi', 'luas',
-            'status','tahun', 'keterangan'
+            'status','tahun', 'provider', 'keterangan'
         ]));
 
         return redirect('/data-bts')->with('success', 'Data berhasil diperbarui');
@@ -199,5 +208,23 @@ class BtsController extends Controller {
         $bts = BtsModel::findOrFail($id);
         $bts->delete();
         return redirect('/data-bts')->with('success', 'Data berhasil dihapus');
+    }
+    
+    // EXPORT PDF
+    public function exportPDF() {
+        $data = BtsModel::select(
+            'tbl_bts.*', 
+            'tbl_desa.desa AS nama_desa',
+            'tbl_kecamatan.kecamatan AS nama_kecamatan',
+            'tbl_kabupaten.kabupaten AS nama_kabupaten'
+        )
+        ->leftJoin('tbl_desa', 'tbl_bts.kd_desa', '=', 'tbl_desa.kd_desa')
+        ->leftJoin('tbl_kecamatan', 'tbl_bts.kd_kec', '=', 'tbl_kecamatan.kd_kec')
+        ->leftJoin('tbl_kabupaten', 'tbl_bts.kd_kab', '=', 'tbl_kabupaten.kd_kab')
+        ->orderBy('tbl_bts.kd_site', 'ASC')
+        ->get();
+        
+        $pdf = PDF::loadView('bts.report-pdf', compact('data'));
+        return $pdf->download('data_bts.pdf');
     }
 }

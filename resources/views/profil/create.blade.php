@@ -13,11 +13,26 @@
             <div class="form-group">
                 <label for="kd_site">Kode Site</label>
                 <input type="text" name="kd_site" id="kd_site" class="form-control" placeholder="Masukkan kode site" required>
-
-                <!-- pesan error kalau datanya sudah ada di DB -->
-                <div id="kdSiteError" class="text-danger mt-1"></div>
             </div>
 
+            <!-- nama pemilik -->
+            <div class="form-group">
+                <label for="pemilik">Nama Pemilik</label>
+                <input type="text" name="pemilik" id="pemilik" class="form-control" placeholder="Masukkan nama pemilik" required>
+            </div>
+
+            <!-- latitude -->
+            <div class="form-group">
+                <label for="lat">Latitude</label>
+                <input type="text" name="lat" id="lat" class="form-control" placeholder="Masukkan latitude" required>
+            </div>
+
+            <!-- longitude -->
+            <div class="form-group">
+                <label for="lng">Longitude</label>
+                <input type="text" name="lng" id="lng" class="form-control" placeholder="Masukkan longitude" required>
+            </div>
+            
             <!-- kabupaten -->
             <div class="form-group">
                 <label for="kd_kab">Kabupaten</label>
@@ -29,10 +44,10 @@
                 </select>
             </div>
             
-            <!-- KECAMATAN -->
+            <!-- kecamatan -->
             <div class="form-group">
                 <label for="kd_kec">Kecamatan</label>
-                <select name="kd_kec" id="kd_kec" class="form-control select2" required>
+                <select name="kd_kec" id="kd_kec" class="form-control" placeholder="Masukkan kecamatan" required>
                     <option value="">-- Pilih Kecamatan --</option>
                     @foreach($kec as $row)
                     <option value="{{ $row->kd_kec }}">{{ $row->kecamatan }}</option>
@@ -40,39 +55,15 @@
                 </select>
             </div>
 
-            <!-- ####### DESA #######-->
+            <!-- desa -->
             <div class="form-group">
                 <label for="kd_desa">Desa</label>
-                <select name="kd_desa" id="kd_desa" class="form-control select2" placeholder="Masukkan desa" required>
+                <select name="kd_desa" id="kd_desa" class="form-control" placeholder="Masukkan desa" required>
                     <option value="">-- Pilih Desa --</option>
                     @foreach($desa as $row)
                     <option value="{{ $row->kd_desa }}">{{ $row->desa }}</option>
                     @endforeach
                 </select>
-            </div>
-
-            <!-- nama pemilik -->
-            <div class="form-group">
-                <label for="pemilik">Nama Pemilik</label>
-                <input type="text" name="pemilik" id="pemilik" class="form-control" placeholder="Masukkan nama pemilik" required>
-            </div>
-
-            <!-- ALAMAT -->
-            <div class="form-group">
-                <label for="alamat">Alamat</label>
-                <input type="text" name="alamat" id="alamat" class="form-control" placeholder="Masukkan alamat" required>
-            </div>
-
-            <!-- LATITUDE -->
-            <div class="form-group">
-                <label for="lat">Latitude</label>
-                <input type="number" name="lat" id="lat" class="form-control" placeholder="Masukkan latitude" step="any" required>
-            </div>
-
-            <!-- LONGITUDE -->
-            <div class="form-group">
-                <label for="lng">Longitude</label>
-                <input type="number" name="lng" id="lng" class="form-control" placeholder="Masukkan longitude" step="any" required>
             </div>
 
             <!-- tinggi -->
@@ -81,35 +72,29 @@
                 <input type="number" name="tinggi" id="tinggi" class="form-control" placeholder="Masukkan tinggi" required>
             </div>
 
-            <!-- LUAS -->
+            <!-- luas -->
             <div class="form-group">
                 <label for="luas">Luas</label>
-                <input type="text" name="luas" id="luas" class="form-control" placeholder="Masukkan luas">
+                <input type="text" name="luas" id="luas" class="form-control" placeholder="Masukkan luas" required>
             </div>
 
-            <!-- STATUS -->
+            <!-- status -->
             <div class="form-group">
                 <label for="status">Status</label>
-                <select name="status" id="status" class="form-control" placeholder="Masukkan status" >
+                <select name="status" id="status" class="form-control" placeholder="Masukkan status" required>
                     <option value="">-- Pilih Status --</option>
                     <option value="1">Aktif</option>
                     <option value="0">Tidak Aktif</option>
                 </select>
             </div>
 
-            <!-- TAHUN -->
+            <!-- tahun -->
             <div class="form-group">
                 <label for="tahun">Tahun</label>
                 <input type="number" name="tahun" id="tahun" class="form-control" placeholder="Masukkan tahun" required>
             </div>
 
-            <!-- PROVIDER -->
-            <div class="form-group">
-                <label for="provider">Provider</label>
-                <input type="text" name="provider" id="provider" class="form-control" placeholder="Masukkan provider" required>
-            </div>
-
-            <!-- KETERANGAN -->
+            <!-- keterangan -->
             <div class="form-group">
                 <label for="keterangan"> Keterangan </label>
                 <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Masukkan keterangan">
@@ -127,24 +112,4 @@
         </form>
     </div>
 </div>
-
-<!-- script - jika data sudah ada di DB -->
-<script>
-    const existingCodes = @json($existing_kd_site);
-</script>
-
-<!-- script - jika data sudah ada di DB -->
-<script>
-document.getElementById('kd_site').addEventListener('keyup', function() {
-    let input = this.value.trim().toUpperCase();  // agar seragam
-    this.value = input; // otomatis ubah ke UPPERCASE
-    
-    if (existingCodes.includes(input)) {
-        document.getElementById('kdSiteError').textContent = "Kode site sudah ada!";
-    } else {
-        document.getElementById('kdSiteError').textContent = "";
-    }
-});
-</script>
-
 @endsection

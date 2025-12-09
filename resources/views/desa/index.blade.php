@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style>
+.pagination li a, 
+.pagination li span {
+    padding: 3px 8px !important;
+    font-size: 20px !important;
+}
+</style>
+
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Daftar Desa</h3>
@@ -30,18 +39,23 @@
                 @endforeach
             </tbody>
         </table>
+        <!-- Pagination -->
+        <div class="mt-3">
+            {{ $data->onEachSide(1)->links('pagination::bootstrap-4') }}
+        </div>
     </div>
 </div>
 
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
-<script>
+
+<!-- <script>
 $(function() {
     $('#tabelBerkas').DataTable({
         language: { url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json' }
     });
 });
-</script>
+</script> -->
 @endsection
 
 

@@ -12,5 +12,5 @@ class BtsModel extends Model {
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    protected $fillable = ['kd_site', 'pemilik', 'lat', 'lng', 'kd_kab','kd_kec','kd_desa','desa', 'tinggi', 'luas', 'status', 'tahun', 'keterangan', 'created_id','created_at', 'updated_id', 'updated_at'];
+    protected $fillable = ['kd_site', 'pemilik', 'alamat', 'lat', 'lng', 'kd_kab','kd_kec','kd_desa','desa', 'tinggi', 'luas', 'status', 'tahun', 'provider', 'keterangan', 'created_id','created_at', 'updated_id', 'updated_at'];
 }
